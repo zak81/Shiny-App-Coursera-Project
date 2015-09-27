@@ -1,7 +1,7 @@
 # ui.R
 # Coursera DDP project final version
 
-# Title: Is strikeout rate associated with player's homerun hitting ability?
+# Title: History's greatest homerun hitters and their strikeout rate
 # Author: Yosuke Ishizaka
 
 library(shiny)
@@ -29,6 +29,5 @@ shinyUI(fluidPage(
                         tableOutput("table2"),
                         plotOutput("plot")
                 )
-                
         )
 ))

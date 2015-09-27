@@ -1,7 +1,7 @@
 # server.R
 # Coursera DDP project final version
 
-# Title: Is strikeout rate associated with player's homerun hitting ability?
+# Title: History's greatest homerun hitters and their strikeout rate
 # Author: Yosuke Ishizaka
 
 
@@ -17,19 +17,19 @@ data(Master)
 batting <- tbl_df(Batting)
 master <- tbl_df(Master)
 
-# Join two data frames and create a new column called playerName, which stores player full name
+# Join two data frames and create a new column called playerName, which stores player's full name
 batting_new <- inner_join(batting, master)
 batting_new$playerName <- with(batting_new, paste(nameFirst, nameLast, sep = " "))
 
-# Data cleaning step was necessary, Sacrifice Flies were not recorded in early eras.
+# Data cleaning step was necessary, Sacrifice Flies were not officially recorded in some years
 batting_new$SF[is.na(batting_new$SF)] <- 0
 
 # The following code creates a new data frame,
-# New variable PA (Plate Appearances) is created,
-# Group by player and sum yearly stats so that each player's total stats will be shown,
-# Create a new variable for Strikeout Percentage,
-# Select the variables that I want shown,
-# Sort by total number of homeruns
+# First, new variable PA (Plate Appearances) is created,
+# Then, group by player and sum yearly stats so that each player's total stats are shown,
+# Then, create a new variable KRate (Strikeout Percentage),
+# Next, select the variables I want displayed,
+# Finally, sort by total number of homeruns
 player_stats <- batting_new %>%
         mutate(PA = AB+BB+HBP+SF+SH) %>%
         group_by(playerID, playerName) %>%
@@ -39,7 +39,7 @@ player_stats <- batting_new %>%
         ungroup() %>%
         arrange(desc(HR))
 
-# Convert Plate Appearances to integer variable        
+# Convert Plate Appearances variable from num to integer variable        
 player_stats$PA <- as.integer(player_stats$PA)
 
 # Create a variable to show only the top 100 homerun hitters in history
@@ -54,11 +54,11 @@ saveRDS(top100, file="top100.rds")
 g <- ggplot(player_stats, aes(KRate, HR)) + labs(list(x = "K%", y = "Total Homeruns"))
 
 # Code inside shinyServer function does the following:
-# Takes Select Box input of 100 player choices from user,
-# Outputs player name to the main panel in app,
-# Outputs a table with player stats for the player selected by user,
-# User may select a second player and the app will repeat the same process fot the second player selected,
-# Once the players are selected the app will plot the selected players in colored dots with player name text
+# First, users can select up to 2 players from a selection of top 100 homerun hitters,
+# Then, it outputs player names to a main panel,
+# Then, it outputs a table with player stats for the selected players,
+# Once the players are selected the app will automatically plot a scatter plot
+
 shinyServer(function(input, output) {
         datasetInput1 <- reactive({ input$player1 })
         output$player1 <- renderPrint({ datasetInput1() })

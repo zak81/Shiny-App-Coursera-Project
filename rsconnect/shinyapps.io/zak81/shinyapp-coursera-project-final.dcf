@@ -1,8 +1,6 @@
 name: shinyapp-coursera-project-final
 account: zak81
 server: shinyapps.io
-bundleId: 274608
+bundleId: 274763
 url: https://zak81.shinyapps.io/shinyapp-coursera-project-final
-when: 1443300431.14411
-asMultiple: FALSE
-asStatic: FALSE
+when: 1443316943.5308
