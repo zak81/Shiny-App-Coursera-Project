@@ -1,4 +1,4 @@
-Is strikeout rate associated with player's homerun hitting ability?
+History's greatest homerun hitters and their strikeout rate
 ========================================================
 author: Yosuke Ishizaka, Course Project for Developing Data Products
 date: 9/25/2015
@@ -42,4 +42,4 @@ The Shiny App
 Users can visit the following link to try the App:
 https://zak81.shinyapps.io/shinyapp-coursera-project-final
 
-The supporting documentation and the project files are avaiable on Github:
+The supporting documentation and the project files are avaiable on Github: https://github.com/zak81/Shiny-App-Coursera-Project
